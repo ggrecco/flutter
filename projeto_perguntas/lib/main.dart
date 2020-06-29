@@ -1,68 +1,42 @@
+
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(MyApp());
-}
+main() =>  runApp(PerguntaApp());
 
-class MyApp extends StatelessWidget {
+
+class PerguntaApp extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
+
+    final perguntas = [
+      "Texto qualquer",
+      "Outro texto aqui",
+      "pergunta aqui?"
+    ];
+
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.teal,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
-
-  final String title;
-
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+      home: Scaffold(
+        appBar: AppBar(
+          title: Text("Perguntas!"),
+        ),
+        body: Column(
           children: <Widget>[
-            Text(
-              'You have pushed the button this many times:',
+            Text(perguntas[2]),
+            RaisedButton(
+              child: Text("Referência 1"),
+              onPressed: null,
             ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
+            RaisedButton(
+              child: Text("Referência 2"),
+              onPressed: null,
+            ),
+            RaisedButton(
+              child: Text("Referência 3"),
+              onPressed: null,
             ),
           ],
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
-      ), 
-      floatingActionButton: FloatingActionButton(
-
       ),
     );
   }
