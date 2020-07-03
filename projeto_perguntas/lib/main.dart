@@ -1,19 +1,22 @@
-
 import 'package:flutter/material.dart';
+import './questao.dart';
 
-main() =>  runApp(PerguntaApp());
+main() => runApp(PerguntaApp());
 
+class PerguntaAppState extends State<PerguntaApp> {
+  var perguntaSelecionada = 0;
 
-class PerguntaApp extends StatelessWidget {
+  void responder() {
+    setState(() {
+      perguntaSelecionada++;
+    });
+    
+    print(perguntaSelecionada);
+  }
 
   @override
   Widget build(BuildContext context) {
-
-    final perguntas = [
-      "Texto qualquer",
-      "Outro texto aqui",
-      "pergunta aqui?"
-    ];
+    final perguntas = ["Texto qualquer", "Outro texto aqui", "pergunta aqui?"];
 
     return MaterialApp(
       home: Scaffold(
@@ -22,22 +25,28 @@ class PerguntaApp extends StatelessWidget {
         ),
         body: Column(
           children: <Widget>[
-            Text(perguntas[2]),
+            Questao(perguntas[perguntaSelecionada]),
             RaisedButton(
               child: Text("Referência 1"),
-              onPressed: null,
+              onPressed: responder,
             ),
             RaisedButton(
               child: Text("Referência 2"),
-              onPressed: null,
+              onPressed: responder,
             ),
             RaisedButton(
               child: Text("Referência 3"),
-              onPressed: null,
+              onPressed: () => responder(),
             ),
           ],
         ),
       ),
     );
+  }
+}
+
+class PerguntaApp extends StatefulWidget {
+  PerguntaAppState createState() {
+    return PerguntaAppState();
   }
 }
