@@ -1,16 +1,37 @@
 import 'package:flutter/material.dart';
 
 class Resultado extends StatelessWidget {
-  final String texto;
+  final int pontuacao;
+  final void Function() quandoReiniciarQuestionario;
 
-  Resultado(this.texto);
+  Resultado({this.pontuacao, this.quandoReiniciarQuestionario});
+
+  String get texto {
+    if (pontuacao < 5) {
+      return 'Parabéns!!';
+    } else if (pontuacao < 10) {
+      return 'OK!';
+    } else {
+      return 'Jedi!!';
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Center(
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        Center(
             child: Text(
           texto,
           style: TextStyle(fontSize: 28),
-        ));
+        )),
+        FlatButton(
+          child: Text("Reiniciar?", style: TextStyle(fontSize: 18)),
+          textColor: Colors.blue,
+          onPressed: quandoReiniciarQuestionario,
+        )
+      ],
+    );
   }
 }
