@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import './questao.dart';
+import './questionario.dart';
+import './resultado.dart';
 
 main() => runApp(PerguntaApp());
 
@@ -7,39 +8,47 @@ class PerguntaAppState extends State<PerguntaApp> {
   var perguntaSelecionada = 0;
 
   void responder() {
-    setState(() {
-      perguntaSelecionada++;
-    });
-    
-    print(perguntaSelecionada);
+    if (temPerguntaSelecionada) {
+      setState(() {
+        perguntaSelecionada++;
+      });
+    }
+  }
+
+  final _perguntas = const [
+    {
+      'texto': 'Pergunta 1',
+      'resposta': ['resposta1', 'resposta2', 'resposta3', 'resposta4'],
+    },
+    {
+      'texto': 'Pergunta 2',
+      'resposta': ['resposta1', 'resposta2', 'resposta3', 'resposta4'],
+    },
+    {
+      'texto': 'Pergunta 3',
+      'resposta': ['resposta1', 'resposta2', 'resposta3', 'resposta4'],
+    },
+  ];
+
+  bool get temPerguntaSelecionada {
+    return perguntaSelecionada < _perguntas.length;
   }
 
   @override
   Widget build(BuildContext context) {
-    final perguntas = ["Texto qualquer", "Outro texto aqui", "pergunta aqui?"];
+    List<String> respostas = temPerguntaSelecionada
+        ? _perguntas[perguntaSelecionada]['resposta']
+        : null;
+
 
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
           title: Text("Perguntas!"),
         ),
-        body: Column(
-          children: <Widget>[
-            Questao(perguntas[perguntaSelecionada]),
-            RaisedButton(
-              child: Text("Referência 1"),
-              onPressed: responder,
-            ),
-            RaisedButton(
-              child: Text("Referência 2"),
-              onPressed: responder,
-            ),
-            RaisedButton(
-              child: Text("Referência 3"),
-              onPressed: () => responder(),
-            ),
-          ],
-        ),
+        body: temPerguntaSelecionada
+            ? Questionario(_perguntas, perguntaSelecionada, respostas, responder)
+            : Resultado("Parabéns!!"),
       ),
     );
   }
