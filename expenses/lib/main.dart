@@ -13,30 +13,34 @@ class ExpensesApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: MyHomePage(),
-      theme: ThemeData(
-        primarySwatch: Colors.green,
-        accentColor: Colors.amberAccent,
-        fontFamily: 'Quicksand',
-        textTheme: ThemeData.light().textTheme.copyWith(
-            // ignore: deprecated_member_use
-            title: TextStyle(
-              fontFamily: 'OpenSans',
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-        appBarTheme: AppBarTheme(
+        home: MyHomePage(),
+        theme: ThemeData(
+          primarySwatch: Colors.green,
+          accentColor: Colors.amberAccent,
+          fontFamily: 'Quicksand',
           textTheme: ThemeData.light().textTheme.copyWith(
-            // ignore: deprecated_member_use
-            title: TextStyle(
-              fontFamily: 'OpenSans',
-              fontSize: 25,
-              fontWeight: FontWeight.bold,
-            ),
+                // ignore: deprecated_member_use
+                title: TextStyle(
+                  fontFamily: 'OpenSans',
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                ),
+                button: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+          appBarTheme: AppBarTheme(
+            textTheme: ThemeData.light().textTheme.copyWith(
+                  // ignore: deprecated_member_use
+                  title: TextStyle(
+                    fontFamily: 'OpenSans',
+                    fontSize: 25,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
           ),
-        ),
-    ));
+        ));
   }
 }
 
@@ -64,6 +68,18 @@ class _MyHomePageState extends State<MyHomePage> {
       title: 'Conta de luz',
       value: 211.30,
       date: DateTime.now().subtract(Duration(days: 4)),
+    ),
+    Transaction(
+      id: 't3',
+      title: 'teste',
+      value: 210.80,
+      date: DateTime.now(),
+    ),
+    Transaction(
+      id: 't4',
+      title: 'Conta de teste',
+      value: 180.30,
+      date: DateTime.now(),
     ),
   ];
 

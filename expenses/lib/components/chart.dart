@@ -19,21 +19,16 @@ class Chart extends StatelessWidget {
         bool sameMonth = recentTransaction[i].date.month == weekDay.month;
         bool sameYear = recentTransaction[i].date.year == weekDay.year;
 
-        // print('SameDay : ${sameDay}');
-        // print('recentValue : ${recentTransaction[i].value}');
         if (sameDay && sameMonth && sameYear) {
           totalSum += recentTransaction[i].value;
         }
       }
 
-      print(DateFormat.E().format(weekDay));
-      print(totalSum);
-
       return {
         'day': DateFormat.E().format(weekDay)[0],
         'value': totalSum,
       };
-    });
+    }).reversed.toList();
   }
 
   double get _weekTotalValue {
