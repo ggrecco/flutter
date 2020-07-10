@@ -19,7 +19,7 @@ class TransactionList extends StatelessWidget {
                   'Nenhuma transação cadastrada.',
                   style: Theme.of(context).textTheme.headline6,
                 ),
-                SizedBox(height: 25),
+                SizedBox(height: 20),
                 Container(
                   height: 200,
                   child: Image.asset(
@@ -50,7 +50,7 @@ class TransactionList extends StatelessWidget {
                           'R\$ ${tr.value.toStringAsFixed(2)}',
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
-                            fontSize: 20,
+                            fontSize: 18,
                             color: Theme.of(context).primaryColor,
                           ),
                         ),
