@@ -25,10 +25,13 @@ class _TransactionFormState extends State<TransactionForm> {
     widget.onSubmit(title, value);
   }
 
-  //mostrar calendarios
+  //Selecionar datas
   _showDatePicker(){
     showDatePicker(
-
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(2019),
+      lastDate: DateTime.now(),
     );
   }
 
@@ -68,7 +71,7 @@ class _TransactionFormState extends State<TransactionForm> {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    onPressed: () {},
+                    onPressed: _showDatePicker,
                   )
                 ],
               ),
