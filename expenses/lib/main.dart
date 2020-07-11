@@ -109,6 +109,7 @@ class _MyHomePageState extends State<MyHomePage> {
             Chart(_recentTransactions),
             TransactionList(
               transactions: _transaction,
+              delete: _removeTransaction,
             ),
           ],
         ),
