@@ -4,7 +4,6 @@ import 'package:expenses/components/transaction_form.dart';
 
 import 'dart:math';
 import 'package:expenses/models/transaction.dart';
-import 'package:flutter/services.dart';
 import './components/transaction_form.dart';
 import './components/transaction_list.dart';
 
@@ -13,10 +12,6 @@ main() => runApp(ExpensesApp());
 class ExpensesApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setPreferredOrientations([
-      DeviceOrientation.portraitUp,
-    ]);
-
     return MaterialApp(
         home: MyHomePage(),
         theme: ThemeData(
@@ -56,6 +51,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final List<Transaction> _transaction = [];
+  bool _showChart = false;
 
   List<Transaction> get _recentTransactions {
     return _transaction.where((tr) {
@@ -121,17 +117,28 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            Container(
-              height: availableHeight * 0.30,
-              child: Chart(_recentTransactions),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Text('Exibir grafico'),
+                Switch(
+                  value: _showChart,
+                  onChanged: (value) => setState(() => _showChart = value),
+                ),
+              ],
             ),
-            Container(
-              height: availableHeight * 0.70,
-              child: TransactionList(
-                transactions: _transaction,
-                delete: _removeTransaction,
-              ),
-            ),
+            _showChart
+                ? Container(
+                    height: availableHeight * 0.30,
+                    child: Chart(_recentTransactions),
+                  )
+                : Container(
+                    height: availableHeight * 0.70,
+                    child: TransactionList(
+                      transactions: _transaction,
+                      delete: _removeTransaction,
+                    ),
+                  ),
           ],
         ),
       ),
