@@ -92,6 +92,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    bool isLandscape = MediaQuery.of(context).orientation == Orientation.landscape;
+
     final appBar = AppBar(
       title: Text(
         'Despesas Pessoais',
@@ -129,7 +131,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             _showChart
                 ? Container(
-                    height: availableHeight * 0.30,
+                    height: isLandscape ? availableHeight * 0.70 : availableHeight * 0.30,
                     child: Chart(_recentTransactions),
                   )
                 : Container(
