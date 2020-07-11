@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:expenses/components/transaction_form.dart';
 
 import 'dart:math';
+import 'dart:io';
 import 'package:expenses/models/transaction.dart';
 import './components/transaction_form.dart';
 import './components/transaction_list.dart';
@@ -94,8 +95,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
 
-    bool isLandscape =
-        mediaQuery.orientation == Orientation.landscape;
+    bool isLandscape = mediaQuery.orientation == Orientation.landscape;
 
     final appBar = AppBar(
       title: Text(
@@ -151,9 +151,8 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             if (!_showChart || !isLandscape)
               Container(
-                height: isLandscape
-                    ? availableHeight * 1
-                    : availableHeight * 0.70,
+                height:
+                    isLandscape ? availableHeight * 1 : availableHeight * 0.70,
                 child: TransactionList(
                   transactions: _transaction,
                   delete: _removeTransaction,
@@ -162,10 +161,12 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add),
-        onPressed: () => _openTransactionFormModal(context),
-      ),
+      floatingActionButton: Platform.isIOS
+          ? Container()
+          : FloatingActionButton(
+              child: Icon(Icons.add),
+              onPressed: () => _openTransactionFormModal(context),
+            ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
