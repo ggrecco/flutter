@@ -55,13 +55,12 @@ class _TransactionFormState extends State<TransactionForm> {
               controller: _titleController,
               label: 'Título',
               submit: (_) => _submitForm(),
-              // keyboard: TextInputType.text,
             ),
             AdaptativeText(
               controller: _valueController,
               label: 'Valor R\$',
               submit: (_) => _submitForm(),
-              keyboard: TextInputType.numberWithOptions(decimal: true, signed: true),
+              keyboard: TextInputType.numberWithOptions(decimal: true),
 
               ),
             // TextField(
