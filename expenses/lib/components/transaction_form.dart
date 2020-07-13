@@ -1,7 +1,7 @@
+import 'package:expenses/components/adapative_datepicker.dart';
 import 'package:expenses/components/adaptativeButtom.dart';
 import 'package:expenses/components/adaptativeText.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 
 class TransactionForm extends StatefulWidget {
   final void Function(String, double, DateTime) onSubmit;
@@ -61,8 +61,7 @@ class _TransactionFormState extends State<TransactionForm> {
               label: 'Valor R\$',
               submit: (_) => _submitForm(),
               keyboard: TextInputType.numberWithOptions(decimal: true),
-
-              ),
+            ),
             // TextField(
             //   controller: _titleController,
             //   onSubmitted: (_) => _submitForm(),
@@ -78,27 +77,32 @@ class _TransactionFormState extends State<TransactionForm> {
             //     labelText: 'Valor R\$',
             //   ),
             // ),
-            Container(
-              height: 70,
-              child: Row(
-                children: <Widget>[
-                  Text(
-                    _selectedDate == null
-                        ? 'Nenhuma data selecionada'
-                        : 'Data Selecionada: ${DateFormat('dd/MM/y').format(_selectedDate)}',
-                  ),
-                  FlatButton(
-                    textColor: Theme.of(context).primaryColor,
-                    child: Text(
-                      'Selecionar data',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    onPressed: _showDatePicker,
-                  )
-                ],
-              ),
+            // Container(
+            //   height: 70,
+            //   child: Row(
+            //     children: <Widget>[
+            //       Text(
+            //         _selectedDate == null
+            //             ? 'Nenhuma data selecionada'
+            //             : 'Data Selecionada: ${DateFormat('dd/MM/y').format(_selectedDate)}',
+            //       ),
+            //       FlatButton(
+            //         textColor: Theme.of(context).primaryColor,
+            //         child: Text(
+            //           'Selecionar data',
+            //           style: TextStyle(
+            //             fontWeight: FontWeight.bold,
+            //           ),
+            //         ),
+            //         onPressed: _showDatePicker,
+            //       )
+            //     ],
+            //   ),
+            // ),
+
+            AdaptativeDatePicker(
+              selectedDate: _selectedDate,
+              onDateChange: (newDate) => setState(() => _selectedDate = newDate),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
