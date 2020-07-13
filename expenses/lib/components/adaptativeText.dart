@@ -8,7 +8,7 @@ class AdaptativeText extends StatelessWidget {
   final Function(String) submit;
   final TextInputType keyboard;
 
-  AdaptativeText({
+  const AdaptativeText({
     this.controller,
     this.submit,
     this.label,
