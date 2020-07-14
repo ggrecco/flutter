@@ -5,10 +5,10 @@ class CategoryMealsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Receitas'),
+        title: Text('Receitas!'),
       ),
       body: Center(
-        child: Text('Receitas por Categoria'),
+        child: Text('Receitas por Categoria...'),
       ),
     );
   }
