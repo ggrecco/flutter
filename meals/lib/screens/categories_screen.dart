@@ -4,7 +4,7 @@ import 'package:meals/components/category_item.dart';
 import '../data/dummy_data.dart';
 
 class CategoriesScreen extends StatelessWidget {
-
+  //passa cada elemento de DUMMY para CategoryItem(laço for)
   final elementos = DUMMY_CATEGORIES.map((cat) => CategoryItem(cat)).toList();
 
   @override

@@ -1,3 +1,4 @@
+//o que será mostrado na nova tela a partir de cada quadradinho/container
 import 'package:flutter/material.dart';
 import '../models/category.dart';
 
