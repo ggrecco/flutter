@@ -1,3 +1,4 @@
+// construtor do elementos de cada elemento do grid
 import 'package:flutter/material.dart';
 
 class Category{

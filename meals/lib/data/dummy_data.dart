@@ -1,5 +1,5 @@
+//dados para os containers do grid
 import 'package:flutter/material.dart';
- 
 import '../models/category.dart';
  
 const DUMMY_CATEGORIES = const [
