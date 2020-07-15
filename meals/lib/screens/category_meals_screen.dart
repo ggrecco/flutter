@@ -18,7 +18,7 @@ class CategoryMealsScreen extends StatelessWidget {
         title: Text(category.title),
       ),
       body: Center(
-        child: Text('Receitas por Categoria...\nID: ${category.id}\nTITLE: ${category.title}\n${category.color}'),
+        child: Text('Receitas por Categoria...\nID: ${category.id}\nTITLE: ${category.title}'),
       ),
     );
   }

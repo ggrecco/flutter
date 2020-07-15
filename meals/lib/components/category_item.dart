@@ -1,6 +1,6 @@
 // constroi os elementos dentro do grid
 import 'package:flutter/material.dart';
-import 'package:meals/screens/category_meals_screen.dart';
+import '../utils/app_routes.dart';
 import 'package:meals/models/category.dart';
 
 class CategoryItem extends StatelessWidget {
@@ -11,7 +11,7 @@ class CategoryItem extends StatelessWidget {
   void _selectedCategory(BuildContext context) {
     //push para rota nomeada
     Navigator.of(context).pushNamed(
-      '/categories-meals',
+      AppRoutes.CATEGORIES_MEALS,
       arguments: category,
     );
   }
