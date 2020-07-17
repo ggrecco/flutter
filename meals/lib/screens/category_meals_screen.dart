@@ -1,5 +1,6 @@
 //o que será mostrado na nova tela a partir de cada quadradinho/container
 import 'package:flutter/material.dart';
+import 'package:meals/components/meal_item.dart';
 import '../models/category.dart';
 import '../data/dummy_data.dart';
 
@@ -19,7 +20,7 @@ class CategoryMealsScreen extends StatelessWidget {
       ),
       body: ListView.builder(
         itemCount: categoryMeals.length,
-        itemBuilder: (ctx, index) =>Text(categoryMeals[index].title),
+        itemBuilder: (ctx, index) => MealItem(categoryMeals[index]),
       ),
     );
   }
