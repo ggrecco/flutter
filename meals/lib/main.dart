@@ -4,8 +4,6 @@ import 'package:meals/screens/meal_detail_screen.dart';
 import 'screens/category_meals_screen.dart';
 import 'utils/app_routes.dart';
 
-
-
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
@@ -26,10 +24,13 @@ class MyApp extends StatelessWidget {
             ),
       ),
       routes: {
-        AppRoutes.HOME: (ctx) => CategoriesScreen(),
+        AppRoutes.HOME: (_) => CategoriesScreen(),
         AppRoutes.CATEGORIES_MEALS: (ctx) => CategoryMealsScreen(),
         AppRoutes.MEAL_DETAIL: (ctx) => MealDetailScreen(),
       },
+      onUnknownRoute: (settings) => MaterialPageRoute(
+        builder: (_) => CategoriesScreen(),
+      ),
     );
   }
 }
