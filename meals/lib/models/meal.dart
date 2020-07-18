@@ -12,7 +12,6 @@ enum Cost {
   Expensive,
 }
 
-
 class Meal {
   final String id;
   final List<String> categories;
@@ -43,4 +42,29 @@ class Meal {
     @required this.cost,
     @required this.complexity,
   });
+
+  String get complexityText {
+    switch (complexity) {
+      case Complexity.Simple:
+        return 'Simples';
+      case Complexity.Medium:
+        return 'Normal';
+      case Complexity.Difficult:
+        return 'Difícil';
+      default:
+        return 'Desconhecida';
+    }
+  }
+  String get costText {
+    switch (cost) {
+      case Cost.Cheap:
+        return 'Barato';
+      case Cost.Fair:
+        return 'Justo';
+      case Cost.Expensive:
+        return 'Alto';
+      default:
+        return 'Desconhecido';
+    }
+  }
 }
