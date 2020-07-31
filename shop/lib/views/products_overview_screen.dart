@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:shop/providers/cart.dart';
 import 'package:shop/widgets/product_grid.dart';
+import 'package:shop/widgets/badge.dart';
 
 class ProductOverviewScreen extends StatefulWidget {
   @override
@@ -34,6 +37,16 @@ class _ProductOverviewScreenState extends State<ProductOverviewScreen> {
               PopupMenuItem(child: Text('Somente Favoritos'), value: 0),
               PopupMenuItem(child: Text('Todos'), value: 1)
             ],
+          ),
+          Consumer<Cart>(
+            child: IconButton(
+              icon: Icon(Icons.shopping_cart),
+              onPressed: () {},
+            ),
+            builder: (_, cart, child) => Badge(
+              value: cart.itemCount.toString(),
+              child: child,
+            ),
           )
         ],
       ),
