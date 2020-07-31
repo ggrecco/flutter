@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:shop/widgets/product_grid.dart';
 
-// import 'package:shop/models/product.dart';
-// import 'package:shop/providers/products.dart';
-// import '../models/product.dart';
-// import '../widgets/product_item.dart';
+class ProductOverviewScreen extends StatefulWidget {
+  @override
+  _ProductOverviewScreenState createState() => _ProductOverviewScreenState();
+}
 
-class ProductOverviewScreen extends StatelessWidget {
+class _ProductOverviewScreenState extends State<ProductOverviewScreen> {
+  bool _showFavoriteOnly = false;
   @override
   Widget build(BuildContext context) {
-    // final List<Product> loadedProducts = Provider.of<Products>(context).items;
-
     return Scaffold(
       appBar: AppBar(
         title: Row(
@@ -22,7 +21,13 @@ class ProductOverviewScreen extends StatelessWidget {
         actions: <Widget>[
           PopupMenuButton(
             onSelected: (int selectedValue) {
-              print(selectedValue);
+              setState(() {
+                if (selectedValue == 0) {
+                  _showFavoriteOnly = true;
+                } else {
+                  _showFavoriteOnly = false;
+                }
+              });
             },
             icon: Icon(Icons.more_vert),
             itemBuilder: (_) => [
