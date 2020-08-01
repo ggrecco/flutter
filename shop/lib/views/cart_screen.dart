@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../providers/cart.dart';
 import 'package:provider/provider.dart';
+import '../widgets/cart_item_widget.dart';
 
 class CartScreen extends StatelessWidget {
   @override
@@ -51,7 +52,7 @@ class CartScreen extends StatelessWidget {
           Expanded(
             child: ListView.builder(
               itemCount: cart.itemsCount,
-              itemBuilder: (ctx, i) => Text(itemCart[i].title),
+              itemBuilder: (ctx, i) => CartItemWidget(itemCart[i]),
             ),
           )
         ],
