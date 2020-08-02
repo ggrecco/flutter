@@ -43,7 +43,7 @@ class CartScreen extends StatelessWidget {
                     textColor: Theme.of(context).primaryColor,
                     onPressed: () {
                       Provider.of<Orders>(context, listen: false)
-                          .addOrder(cartItem, cart.totalAmount);
+                          .addOrder(cart);
                       cart.clear();
                     },
                   ),
