@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import '../widgets/app_drawe.dart';
 import '../widgets/product_item.dart';
 import '../providers/products.dart';
+import '../utils/app_route.dart';
 
 class ProductsScreen extends StatelessWidget {
   @override
@@ -16,7 +17,11 @@ class ProductsScreen extends StatelessWidget {
           actions: <Widget>[
             IconButton(
               icon: const Icon(Icons.add),
-              onPressed: () {},
+              onPressed: () {
+                Navigator.of(context).pushNamed(
+                  AppRoutes.PRODUCT_FORM,
+                );
+              },
             )
           ],
         ),

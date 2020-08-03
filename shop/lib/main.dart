@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'package:shop/views/cart_screen.dart';
+import 'package:shop/views/product_form_screen.dart';
 import './views/products_overview_screen.dart';
 import './views/product_detail_screen.dart';
 import './views/orders_screen.dart';
@@ -31,20 +32,22 @@ class MyApp extends StatelessWidget {
         ),
       ],
       child: MaterialApp(
-          title: 'Minha Loja',
-          theme: ThemeData(
-            primarySwatch: Colors.purple,
-            accentColor: Colors.deepOrange,
-            fontFamily: 'Lato',
-          ),
-          // home: ProductOverviewScreen(),
-          routes: {
-            AppRoutes.HOME: (ctx) => ProductOverviewScreen(),
-            AppRoutes.PRODUCT_DEAIL: (ctx) => ProductDetailScreen(),
-            AppRoutes.CART: (ctx) => CartScreen(),
-            AppRoutes.ORDERS: (ctx) => OrderScreen(),
-            AppRoutes.PRODUCTS: (ctx) => ProductsScreen(),
-          }),
+        title: 'Minha Loja',
+        theme: ThemeData(
+          primarySwatch: Colors.purple,
+          accentColor: Colors.deepOrange,
+          fontFamily: 'Lato',
+        ),
+        // home: ProductOverviewScreen(),
+        routes: {
+          AppRoutes.HOME: (ctx) => ProductOverviewScreen(),
+          AppRoutes.PRODUCT_DEAIL: (ctx) => ProductDetailScreen(),
+          AppRoutes.CART: (ctx) => CartScreen(),
+          AppRoutes.ORDERS: (ctx) => OrderScreen(),
+          AppRoutes.PRODUCTS: (ctx) => ProductsScreen(),
+          AppRoutes.PRODUCT_FORM: (ctx) => ProductFormScreen(),
+        },
+      ),
     );
   }
 }
