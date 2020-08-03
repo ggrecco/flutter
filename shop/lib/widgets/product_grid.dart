@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:shop/providers/products.dart';
-import 'package:shop/widgets/product_item.dart';
+import 'package:shop/widgets/product_grid_item.dart';
 import 'package:provider/provider.dart';
 
 class ProductGrid extends StatelessWidget {
-
   final bool showFavoriteOnly;
 
   ProductGrid(this.showFavoriteOnly);
@@ -12,14 +11,16 @@ class ProductGrid extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final productsProvider = Provider.of<Products>(context);
-    final products = showFavoriteOnly ? productsProvider.favoriteItems : productsProvider.items;
+    final products = showFavoriteOnly
+        ? productsProvider.favoriteItems
+        : productsProvider.items;
 
     return GridView.builder(
       padding: const EdgeInsets.all(10),
       itemCount: products.length,
       itemBuilder: (ctx, i) => ChangeNotifierProvider.value(
         value: products[i],
-        child: ProductItem(),
+        child: ProductGridItem(),
       ),
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
