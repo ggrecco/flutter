@@ -15,7 +15,7 @@ class _ProductFormScreenState extends State<ProductFormScreen> {
   final _imageUrlControler = TextEditingController();
   final _form = GlobalKey<FormState>();
 
-  final _formData = Map<String,Object>();
+  final _formData = Map<String, Object>();
 
   @override
   void initState() {
@@ -24,13 +24,24 @@ class _ProductFormScreenState extends State<ProductFormScreen> {
   }
 
   void _updateImage() {
-    setState(() {});
+    if(isValidImageUrl(_imageUrlControler.text)){
+      setState(() {});
+    }
   }
 
-  void _saveForm(){
+  bool isValidImageUrl(String url) {
+    bool startWithHTTP = url.toLowerCase().startsWith('http://');
+    bool startWithHTTPS = url.toLowerCase().startsWith('https://');
+    bool endsWithPng = url.toLowerCase().endsWith('.png');
+    bool endsWithJpg = url.toLowerCase().endsWith('.jpg');
+    bool endsWithJpeg = url.toLowerCase().endsWith('.jpeg');
+    return (startWithHTTPS || startWithHTTP) && (endsWithPng || endsWithJpg || endsWithJpeg);
+  }
+
+  void _saveForm() {
     var isValid = _form.currentState.validate();
 
-    if(!isValid){
+    if (!isValid) {
       return;
     }
 
@@ -48,7 +59,6 @@ class _ProductFormScreenState extends State<ProductFormScreen> {
     print(newProduct.description);
     print(newProduct.imageUrl);
   }
-
 
   @override
   void dispose() {
@@ -75,23 +85,22 @@ class _ProductFormScreenState extends State<ProductFormScreen> {
           child: ListView(
             children: <Widget>[
               TextFormField(
-                decoration: InputDecoration(labelText: 'Título'),
-                textInputAction: TextInputAction.next,
-                onFieldSubmitted: (_) {
-                  FocusScope.of(context).requestFocus(_priceFocusNode);
-                },
-                onSaved: (value) => _formData['title'] = value,
-                validator: (value) {
-                  if(value.trim().isEmpty){
-                    return 'Informe um título válido';
-                  }
-                  if(value.trim().length <= 3){
-                    return 'Informe um título com mais de 3 caracteres';
-                  }
+                  decoration: InputDecoration(labelText: 'Título'),
+                  textInputAction: TextInputAction.next,
+                  onFieldSubmitted: (_) {
+                    FocusScope.of(context).requestFocus(_priceFocusNode);
+                  },
+                  onSaved: (value) => _formData['title'] = value,
+                  validator: (value) {
+                    if (value.trim().isEmpty) {
+                      return 'Informe um título válido';
+                    }
+                    if (value.trim().length <= 3) {
+                      return 'Informe um título com mais de 3 caracteres';
+                    }
 
-                  return null;
-                }
-              ),
+                    return null;
+                  }),
               TextFormField(
                 decoration: InputDecoration(labelText: 'Preço'),
                 textInputAction: TextInputAction.next,
@@ -101,6 +110,17 @@ class _ProductFormScreenState extends State<ProductFormScreen> {
                   FocusScope.of(context).requestFocus(_descriptionFocusNode);
                 },
                 onSaved: (value) => _formData['price'] = double.parse(value),
+                validator: (value){
+                  bool isEmpty = value.trim().isEmpty;
+                  var newPrice = double.tryParse(value);
+                  bool isInvalid = newPrice == null || newPrice <= 0;
+
+                  if(isEmpty && isInvalid){
+                    return 'Informe um valor válido';
+                  }
+
+                  return null;
+                },
               ),
               TextFormField(
                 decoration: InputDecoration(labelText: 'Descrição'),
@@ -108,6 +128,15 @@ class _ProductFormScreenState extends State<ProductFormScreen> {
                 keyboardType: TextInputType.multiline,
                 focusNode: _descriptionFocusNode,
                 onSaved: (value) => _formData['description'] = value,
+                validator: (value) {
+                  bool isEmpty = value.trim().isEmpty;                  
+                  bool isInvalid = value.trim().length <= 10;
+
+                  if(isEmpty && isInvalid){
+                    return 'Informe uma descrição válida(min 10 caracteres)';
+                  }
+                  return null;
+                },
               ),
               Row(
                 crossAxisAlignment: CrossAxisAlignment.end,
@@ -123,6 +152,14 @@ class _ProductFormScreenState extends State<ProductFormScreen> {
                         _saveForm();
                       },
                       onSaved: (value) => _formData['imageUrl'] = value,
+                      validator: (value) {
+                        bool isEmpty = value.trim().isEmpty;
+                        bool invalida = !isValidImageUrl(value);
+                        if(isEmpty || invalida) {
+                          return 'Informe uma url válida';
+                        }
+                        return null;
+                      },
                     ),
                   ),
                   Container(
