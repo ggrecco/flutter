@@ -25,8 +25,23 @@ class _ProductFormScreenState extends State<ProductFormScreen> {
     _imageUrlFocusNode.addListener(_updateImage);
   }
 
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (_formData.isEmpty) {
+      final product = ModalRoute.of(context).settings.arguments as Product;
+      _formData['id'] = product.id;
+      _formData['title'] = product.title;
+      _formData['description'] = product.description;
+      _formData['price'] = product.price;
+      _formData['imageUrl'] = product.imageUrl;
+
+      _imageUrlControler.text = _formData['imageUrl'];
+    }
+  }
+
   void _updateImage() {
-    if(isValidImageUrl(_imageUrlControler.text)){
+    if (isValidImageUrl(_imageUrlControler.text)) {
       setState(() {});
     }
   }
@@ -37,7 +52,8 @@ class _ProductFormScreenState extends State<ProductFormScreen> {
     bool endsWithPng = url.toLowerCase().endsWith('.png');
     bool endsWithJpg = url.toLowerCase().endsWith('.jpg');
     bool endsWithJpeg = url.toLowerCase().endsWith('.jpeg');
-    return (startWithHTTPS || startWithHTTP) && (endsWithPng || endsWithJpg || endsWithJpeg);
+    return (startWithHTTPS || startWithHTTP) &&
+        (endsWithPng || endsWithJpg || endsWithJpeg);
   }
 
   void _saveForm() {
@@ -49,20 +65,21 @@ class _ProductFormScreenState extends State<ProductFormScreen> {
 
     _form.currentState.save();
     final newProduct = Product(
+      id: _formData["id"],
       title: _formData["title"],
       price: _formData["price"],
       description: _formData["description"],
       imageUrl: _formData["imageUrl"],
     );
 
-    Provider.of<Products>(context, listen: false).addProduct(newProduct);
-    Navigator.of(context).pop();
+    final products = Provider.of<Products>(context, listen: false);
+    if (_formData['id'] == null) {
+      products.addProduct(newProduct);
+    } else {
+      products.updateProduct(newProduct);
+    }
 
-    print(newProduct.id);
-    print(newProduct.title);
-    print(newProduct.price);
-    print(newProduct.description);
-    print(newProduct.imageUrl);
+    Navigator.of(context).pop();
   }
 
   @override
@@ -90,6 +107,7 @@ class _ProductFormScreenState extends State<ProductFormScreen> {
           child: ListView(
             children: <Widget>[
               TextFormField(
+                initialValue: _formData["title"],
                   decoration: InputDecoration(labelText: 'Título'),
                   textInputAction: TextInputAction.next,
                   onFieldSubmitted: (_) {
@@ -107,6 +125,7 @@ class _ProductFormScreenState extends State<ProductFormScreen> {
                     return null;
                   }),
               TextFormField(
+                initialValue: _formData["price"].toString(),
                 decoration: InputDecoration(labelText: 'Preço'),
                 textInputAction: TextInputAction.next,
                 focusNode: _priceFocusNode,
@@ -115,12 +134,12 @@ class _ProductFormScreenState extends State<ProductFormScreen> {
                   FocusScope.of(context).requestFocus(_descriptionFocusNode);
                 },
                 onSaved: (value) => _formData['price'] = double.parse(value),
-                validator: (value){
+                validator: (value) {
                   bool isEmpty = value.trim().isEmpty;
                   var newPrice = double.tryParse(value);
                   bool isInvalid = newPrice == null || newPrice <= 0;
 
-                  if(isEmpty && isInvalid){
+                  if (isEmpty && isInvalid) {
                     return 'Informe um valor válido';
                   }
 
@@ -128,16 +147,17 @@ class _ProductFormScreenState extends State<ProductFormScreen> {
                 },
               ),
               TextFormField(
+                initialValue: _formData["description"],
                 decoration: InputDecoration(labelText: 'Descrição'),
                 maxLines: 3,
                 keyboardType: TextInputType.multiline,
                 focusNode: _descriptionFocusNode,
                 onSaved: (value) => _formData['description'] = value,
                 validator: (value) {
-                  bool isEmpty = value.trim().isEmpty;                  
+                  bool isEmpty = value.trim().isEmpty;
                   bool isInvalid = value.trim().length <= 10;
 
-                  if(isEmpty && isInvalid){
+                  if (isEmpty && isInvalid) {
                     return 'Informe uma descrição válida(min 10 caracteres)';
                   }
                   return null;
@@ -160,7 +180,7 @@ class _ProductFormScreenState extends State<ProductFormScreen> {
                       validator: (value) {
                         bool isEmpty = value.trim().isEmpty;
                         bool invalida = !isValidImageUrl(value);
-                        if(isEmpty || invalida) {
+                        if (isEmpty || invalida) {
                           return 'Informe uma url válida';
                         }
                         return null;
