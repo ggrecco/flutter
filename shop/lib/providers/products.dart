@@ -15,16 +15,18 @@ class Products with ChangeNotifier {
 
   void addProduct(Product newProduct) {
     const url = 'https://flutter-ggrecco-shop.firebaseio.com/products.json';
-    http.post(
-      url,
-      body: json.encode({
-        'title': newProduct.title,
-        'description': newProduct.description,
-        'price': newProduct.price,
-        'imageUrl': newProduct.imageUrl,
-        'isFavorite': newProduct.isFavorite
-      }),
-    );
+    http
+        .post(
+          url,
+          body: json.encode({
+            'title': newProduct.title,
+            'description': newProduct.description,
+            'price': newProduct.price,
+            'imageUrl': newProduct.imageUrl,
+            'isFavorite': newProduct.isFavorite
+          }),
+        )
+        .then((value) => null);
     _items.add(
       Product(
         id: Random().nextDouble().toString(),

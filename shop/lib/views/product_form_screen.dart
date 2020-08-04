@@ -31,15 +31,14 @@ class _ProductFormScreenState extends State<ProductFormScreen> {
     if (_formData.isEmpty) {
       final product = ModalRoute.of(context).settings.arguments as Product;
 
-      if(product != null) {
+      if (product != null) {
+        _formData['id'] = product.id;
+        _formData['title'] = product.title;
+        _formData['description'] = product.description;
+        _formData['price'] = product.price;
+        _formData['imageUrl'] = product.imageUrl;
 
-      _formData['id'] = product.id;
-      _formData['title'] = product.title;
-      _formData['description'] = product.description;
-      _formData['price'] = product.price;
-      _formData['imageUrl'] = product.imageUrl;
-
-      _imageUrlControler.text = _formData['imageUrl'];
+        _imageUrlControler.text = _formData['imageUrl'];
       }
       _formData['price'] = '';
     }
@@ -112,7 +111,7 @@ class _ProductFormScreenState extends State<ProductFormScreen> {
           child: ListView(
             children: <Widget>[
               TextFormField(
-                initialValue: _formData["title"],
+                  initialValue: _formData["title"],
                   decoration: InputDecoration(labelText: 'Título'),
                   textInputAction: TextInputAction.next,
                   onFieldSubmitted: (_) {
@@ -208,11 +207,9 @@ class _ProductFormScreenState extends State<ProductFormScreen> {
                     alignment: Alignment.center,
                     child: _imageUrlControler.text.isEmpty
                         ? Text('Informe a URL')
-                        : FittedBox(
-                            child: Image.network(
-                              _imageUrlControler.text,
-                              fit: BoxFit.cover,
-                            ),
+                        : Image.network(
+                            _imageUrlControler.text,
+                            fit: BoxFit.cover,
                           ),
                   ),
                 ],
