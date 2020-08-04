@@ -1,6 +1,7 @@
 import 'dart:math';
-
+import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 import '../providers/product.dart';
 import '../data/dummy_data.dart';
 
@@ -13,6 +14,17 @@ class Products with ChangeNotifier {
   }
 
   void addProduct(Product newProduct) {
+    const url = 'https://flutter-ggrecco-shop.firebaseio.com/products.json';
+    http.post(
+      url,
+      body: json.encode({
+        'title': newProduct.title,
+        'description': newProduct.description,
+        'price': newProduct.price,
+        'imageUrl': newProduct.imageUrl,
+        'isFavorite': newProduct.isFavorite
+      }),
+    );
     _items.add(
       Product(
         id: Random().nextDouble().toString(),
@@ -29,28 +41,26 @@ class Products with ChangeNotifier {
     return _items.length;
   }
 
-  void updateProduct(Product product){
-    if( product == null && product.id == null ){
+  void updateProduct(Product product) {
+    if (product == null && product.id == null) {
       return;
     }
     final index = _items.indexWhere((prod) => prod.id == product.id);
 
-    if(index >= 0){
+    if (index >= 0) {
       _items[index] = product;
       notifyListeners();
     }
   }
 
-
-  void deleteProduct(String id){
+  void deleteProduct(String id) {
     final index = _items.indexWhere((prod) => prod.id == id);
 
-    if(index >= 0){
-    _items.removeWhere((product) => product.id == id);
-    notifyListeners();
+    if (index >= 0) {
+      _items.removeWhere((product) => product.id == id);
+      notifyListeners();
     }
   }
-
 }
 
 // bool _showFavoriteOnly = false;
