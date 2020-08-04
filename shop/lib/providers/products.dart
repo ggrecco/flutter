@@ -40,6 +40,12 @@ class Products with ChangeNotifier {
       notifyListeners();
     }
   }
+
+
+  void deleteProduct(String id){
+    
+  }
+
 }
 
 // bool _showFavoriteOnly = false;
