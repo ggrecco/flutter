@@ -13,30 +13,35 @@ class Products with ChangeNotifier {
     return _items.where((prod) => prod.isFavorite).toList();
   }
 
-  void addProduct(Product newProduct) {
+  Future<void> addProduct(Product newProduct) {
     const url = 'https://flutter-ggrecco-shop.firebaseio.com/products.json';
-    http
+    return http
         .post(
-          url,
-          body: json.encode({
-            'title': newProduct.title,
-            'description': newProduct.description,
-            'price': newProduct.price,
-            'imageUrl': newProduct.imageUrl,
-            'isFavorite': newProduct.isFavorite
-          }),
-        )
-        .then((value) => null);
-    _items.add(
-      Product(
-        id: Random().nextDouble().toString(),
-        title: newProduct.title,
-        description: newProduct.description,
-        price: newProduct.price,
-        imageUrl: newProduct.imageUrl,
+      url,
+      body: json.encode(
+        {
+          'title': newProduct.title,
+          'description': newProduct.description,
+          'price': newProduct.price,
+          'imageUrl': newProduct.imageUrl,
+          'isFavorite': newProduct.isFavorite
+        },
       ),
+    )
+        .then(
+      (response) {
+        _items.add(
+          Product(
+            id: json.decode(response.body)['name'],
+            title: newProduct.title,
+            description: newProduct.description,
+            price: newProduct.price,
+            imageUrl: newProduct.imageUrl,
+          ),
+        );
+        notifyListeners();
+      },
     );
-    notifyListeners();
   }
 
   int get itemCount {
