@@ -14,7 +14,7 @@ class Products with ChangeNotifier {
   }
 
   Future<void> addProduct(Product newProduct) {
-    const url = 'https://flutter-ggrecco-shop.firebaseio.com/products.json';
+    const url = 'https://flutter-ggrecco-shop.firebaseio.com/products';
     return http
         .post(
       url,
