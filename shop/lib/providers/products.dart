@@ -1,4 +1,3 @@
-import 'dart:math';
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -6,8 +5,8 @@ import '../providers/product.dart';
 // import '../data/dummy_data.dart';
 
 class Products with ChangeNotifier {
-  final String _url =
-      'https://flutter-ggrecco-shop.firebaseio.com/products.json';
+  final String _baseUrl =
+      'https://flutter-ggrecco-shop.firebaseio.com/products';
   List<Product> _items = [];
   // List<Product> _items = DUMMY_PRODUCTS;
 
@@ -17,7 +16,7 @@ class Products with ChangeNotifier {
   }
 
   Future<void> loadProducts() async {
-    final response = await http.get(_url);
+    final response = await http.get('$_baseUrl.json');
     Map<String, dynamic> data = json.decode(response.body);
     _items.clear();
     if (data != null)
@@ -39,7 +38,7 @@ class Products with ChangeNotifier {
 
   Future<void> addProduct(Product newProduct) async {
     final response = await http.post(
-      _url,
+      '$_baseUrl.json',
       body: json.encode(
         {
           'title': newProduct.title,
