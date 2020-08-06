@@ -19,8 +19,9 @@ class Products with ChangeNotifier {
   Future<void> loadProducts() async {
     final response = await http.get('$_baseUrl.json');
     Map<String, dynamic> data = json.decode(response.body);
+
     _items.clear();
-    if (data != null)
+    if (data != null){
       data.forEach((productId, productData) {
         _items.add(
           Product(
@@ -34,6 +35,7 @@ class Products with ChangeNotifier {
         );
       });
     notifyListeners();
+    }
     return Future.value();
   }
 

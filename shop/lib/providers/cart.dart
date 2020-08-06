@@ -40,15 +40,16 @@ class Cart with ChangeNotifier {
 
   void additem(Product product) {
     if (_items.containsKey(product.id)) {
-      _items.update(product.id, (existinItem) {
-        return CartItem(
+      _items.update(
+        product.id,
+        (existinItem) => CartItem(
           id: existinItem.id,
           productId: product.id,
           price: existinItem.price,
           quanty: existinItem.quanty + 1,
           title: existinItem.title,
-        );
-      });
+        ),
+      );
     } else {
       _items.putIfAbsent(
         product.id,
@@ -61,6 +62,7 @@ class Cart with ChangeNotifier {
         ),
       );
     }
+
     notifyListeners();
   }
 
@@ -68,6 +70,7 @@ class Cart with ChangeNotifier {
     if (!_items.containsKey(productId)) {
       return;
     }
+
     if (_items[productId].quanty == 1) {
       _items.remove(productId);
     } else {
@@ -82,6 +85,7 @@ class Cart with ChangeNotifier {
         ),
       );
     }
+
     notifyListeners();
   }
 
