@@ -91,13 +91,14 @@ class Products with ChangeNotifier {
 
     if (index >= 0) {
       final product = _items[index];
+      _items.remove(product);
+      notifyListeners();
       final response = await http.delete('$_baseUrl/${product.id}.json');
       if (response.statusCode >= 400) {
-        print('problema');
-      } else {
-        _items.remove(product);
-        // _items.removeWhere((product) => product.id == id);
+        _items.insert(index, product);
         notifyListeners();
+      } else {
+        // _items.removeWhere((product) => product.id == id);
       }
     }
   }
