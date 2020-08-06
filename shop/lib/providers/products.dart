@@ -65,13 +65,22 @@ class Products with ChangeNotifier {
     return _items.length;
   }
 
-  void updateProduct(Product product) {
+  Future<void> updateProduct(Product product) async {
     if (product == null && product.id == null) {
       return;
     }
     final index = _items.indexWhere((prod) => prod.id == product.id);
 
     if (index >= 0) {
+      await http.patch(
+        '$_baseUrl/${product.id}.json',
+        body: json.encode({
+          'title': product.title,
+          'description': product.description,
+          'price': product.price,
+          'imageUrl': product.imageUrl,
+        }),
+      );
       _items[index] = product;
       notifyListeners();
     }

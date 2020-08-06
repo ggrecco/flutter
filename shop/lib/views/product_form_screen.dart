@@ -1,4 +1,3 @@
-import 'dart:math';
 import 'package:provider/provider.dart';
 
 import 'package:flutter/material.dart';
@@ -80,33 +79,29 @@ class _ProductFormScreenState extends State<ProductFormScreen> {
     });
 
     final products = Provider.of<Products>(context, listen: false);
-    if (_formData['id'] == null) {
-      try {
+    try {
+      if (_formData['id'] == null) {
         await products.addProduct(newProduct);
-        Navigator.of(context).pop();
-      } catch (error) {
-        await showDialog<Null>(
-            context: context,
-            builder: (ctx) => AlertDialog(
-                  title: Text('Ocorreu um erro!'),
-                  content: Text('Ocorreu um erro esperado!'),
-                  actions: <Widget>[
-                    FlatButton(
-                      child: Text('Fechar'),
-                      onPressed: () => Navigator.of(context).pop(),
-                    ),
-                  ],
-                ));
-      } finally {
-        setState(() {
-          _isLoading = false;
-        });
+      } else {
+        await products.updateProduct(newProduct);
       }
-    } else {
-      products.updateProduct(newProduct);
+      Navigator.of(context).pop();
+    } catch (error) {
+      await showDialog<Null>(
+          context: context,
+          builder: (ctx) => AlertDialog(
+                title: Text('Ocorreu um erro!'),
+                content: Text('Ocorreu um erro esperado!'),
+                actions: <Widget>[
+                  FlatButton(
+                    child: Text('Fechar'),
+                    onPressed: () => Navigator.of(context).pop(),
+                  ),
+                ],
+              ));
+    } finally {
       setState(() {
         _isLoading = false;
-        Navigator.of(context).pop();
       });
     }
   }
