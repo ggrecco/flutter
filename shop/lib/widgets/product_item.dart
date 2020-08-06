@@ -43,13 +43,13 @@ class ProductItem extends StatelessWidget {
                       FlatButton(
                         child: Text('Não'),
                         onPressed: () {
-                          Navigator.of(context).pop(false);
+                          Navigator.of(context).pop();
                         },
                       ),
                       FlatButton(
                         child: Text('Sim'),
                         onPressed: () {
-                          Navigator.of(context).pop(true);
+                          Navigator.of(context).pop();
                         },
                       ),
                     ],
