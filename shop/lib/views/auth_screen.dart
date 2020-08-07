@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:shop/widgets/auth_card.dart';
 
 class AuthScreen extends StatelessWidget {
   @override
@@ -53,6 +54,7 @@ class AuthScreen extends StatelessWidget {
                     ),
                   ),
                 ),
+                AuthCard(),
               ],
             ),
           ),
