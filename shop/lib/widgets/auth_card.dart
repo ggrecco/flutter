@@ -36,7 +36,9 @@ class _AuthCardState extends State<AuthCard> {
                 decoration: InputDecoration(labelText: 'E-mail'),
                 keyboardType: TextInputType.emailAddress,
                 validator: (value) {
-                  if(value.isEmpty || !value.contains('@') || !value.contains('.com')){
+                  if (value.isEmpty ||
+                      !value.contains('@') ||
+                      !value.contains('.com')) {
                     return 'Informe um e-mail válido';
                   }
                   return null;
@@ -49,28 +51,45 @@ class _AuthCardState extends State<AuthCard> {
                 obscureText: true,
                 keyboardType: TextInputType.emailAddress,
                 validator: (value) {
-                  if(value.isEmpty || value.length < 5 ){
+                  if (value.isEmpty || value.length < 5) {
                     return 'Informe uma senha maior que 5 caracteres';
                   }
                   return null;
                 },
                 onSaved: (value) => _authData['password'] = value,
               ),
-              if(_authMode == AuthMode.Signup)
+              if (_authMode == AuthMode.Signup)
                 TextFormField(
                   decoration: InputDecoration(labelText: 'Confirmar Senha'),
                   controller: _passwordController,
                   obscureText: true,
                   keyboardType: TextInputType.emailAddress,
-                  validator: _authMode == AuthMode.Signup ? (value) {
-                    if(value != _passwordController.text){
-                      return 'Senhas diferentes!';
-                    }
-                    return null;
-                  }: null,
+                  validator: _authMode == AuthMode.Signup
+                      ? (value) {
+                          if (value != _passwordController.text) {
+                            return 'Senhas diferentes!';
+                          }
+                          return null;
+                        }
+                      : null,
                   onSaved: (value) => _authData['password'] = value,
                 ),
-                SizedBox(height:20),
+              SizedBox(height: 20),
+              RaisedButton(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(30),
+                ),
+                color: Theme.of(context).primaryColor,
+                textColor: Theme.of(context).primaryTextTheme.button.color,
+                padding: EdgeInsets.symmetric(
+                  horizontal: 30.0,
+                  vertical: 8.0,
+                ),
+                child: Text(
+                  _authMode == AuthMode.Login ? 'ENTRAR' : 'REGISTRAR',
+                ),
+                onPressed: (){},
+              )
             ],
           ),
         ),
