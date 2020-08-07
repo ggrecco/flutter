@@ -8,7 +8,10 @@ class AuthCard extends StatefulWidget {
 }
 
 class _AuthCardState extends State<AuthCard> {
-  Map<String, String> _authData = {
+  AuthMode _authMode = AuthMode.Login;
+  final _passwordController = TextEditingController();
+
+  final Map<String, String> _authData = {
     'email': '',
     'password': '',
   };
@@ -42,6 +45,7 @@ class _AuthCardState extends State<AuthCard> {
               ),
               TextFormField(
                 decoration: InputDecoration(labelText: 'Senha'),
+                controller: _passwordController,
                 obscureText: true,
                 keyboardType: TextInputType.emailAddress,
                 validator: (value) {
@@ -52,6 +56,20 @@ class _AuthCardState extends State<AuthCard> {
                 },
                 onSaved: (value) => _authData['password'] = value,
               ),
+              if(_authMode == AuthMode.Signup)
+                TextFormField(
+                  decoration: InputDecoration(labelText: 'Confirmar Senha'),
+                  controller: _passwordController,
+                  obscureText: true,
+                  keyboardType: TextInputType.emailAddress,
+                  validator: (value) {
+                    if(value.isEmpty || value.length < 5 ){
+                      return 'Informe uma senha maior que 5 caracteres';
+                    }
+                    return null;
+                  },
+                  onSaved: (value) => _authData['password'] = value,
+                ),
             ],
           ),
         ),
