@@ -22,8 +22,25 @@ class AuthScreen extends StatelessWidget {
           Container(
             width: double.infinity,
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 Container(
+                  padding: EdgeInsets.symmetric(
+                    vertical: 8,
+                    horizontal: 70,
+                  ),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    color: Colors.deepOrange.shade900,
+                    boxShadow: [
+                      BoxShadow(
+                        blurRadius: 8,
+                        color: Colors.black26,
+                        offset: Offset(0, 2),
+                      ),
+                    ],
+                  ),
                   child: Text(
                     'Minha Loja',
                     style: TextStyle(
