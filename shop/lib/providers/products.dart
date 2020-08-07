@@ -2,12 +2,13 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:shop/exception/http_exception.dart';
+import 'package:shop/utils/constants.dart';
 import '../providers/product.dart';
 // import '../data/dummy_data.dart';
 
 class Products with ChangeNotifier {
   final String _baseUrl =
-      'https://flutter-ggrecco-shop.firebaseio.com/products';
+      '${Constants.BASE_API_URL}/products';
   List<Product> _items = [];
   // List<Product> _items = DUMMY_PRODUCTS;
 
