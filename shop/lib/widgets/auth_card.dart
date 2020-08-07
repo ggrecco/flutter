@@ -8,6 +8,7 @@ class AuthCard extends StatefulWidget {
 }
 
 class _AuthCardState extends State<AuthCard> {
+  bool _isLoading = false;
   AuthMode _authMode = AuthMode.Login;
   final _passwordController = TextEditingController();
 
@@ -16,7 +17,9 @@ class _AuthCardState extends State<AuthCard> {
     'password': '',
   };
 
-  void _submit() {}
+  void _submit() {
+
+  }
 
   void _switchAuthMode() {
     if (_authMode == AuthMode.Login) {
@@ -89,21 +92,24 @@ class _AuthCardState extends State<AuthCard> {
                   onSaved: (value) => _authData['password'] = value,
                 ),
               SizedBox(height: 20),
-              RaisedButton(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(30),
+              if(_isLoading)
+                CircularProgressIndicator()
+              else
+                RaisedButton(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30),
+                  ),
+                  color: Theme.of(context).primaryColor,
+                  textColor: Theme.of(context).primaryTextTheme.button.color,
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 30.0,
+                    vertical: 8.0,
+                  ),
+                  child: Text(
+                    _authMode == AuthMode.Login ? 'ENTRAR' : 'REGISTRAR',
+                  ),
+                  onPressed: _submit,
                 ),
-                color: Theme.of(context).primaryColor,
-                textColor: Theme.of(context).primaryTextTheme.button.color,
-                padding: EdgeInsets.symmetric(
-                  horizontal: 30.0,
-                  vertical: 8.0,
-                ),
-                child: Text(
-                  _authMode == AuthMode.Login ? 'ENTRAR' : 'REGISTRAR',
-                ),
-                onPressed: _submit,
-              ),
               FlatButton(
                 onPressed: _switchAuthMode,
                 child: Text(
