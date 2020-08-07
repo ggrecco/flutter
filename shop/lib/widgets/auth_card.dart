@@ -23,7 +23,7 @@ class _AuthCardState extends State<AuthCard> {
         borderRadius: BorderRadius.circular(10),
       ),
       child: Container(
-        height: 320,
+        height: 250,
         width: deviceSize.width * 0.75,
         padding: EdgeInsets.all(16),
         child: Form(
@@ -39,6 +39,18 @@ class _AuthCardState extends State<AuthCard> {
                   return null;
                 },
                 onSaved: (value) => _authData['email'] = value,
+              ),
+              TextFormField(
+                decoration: InputDecoration(labelText: 'Senha'),
+                obscureText: true,
+                keyboardType: TextInputType.emailAddress,
+                validator: (value) {
+                  if(value.isEmpty || value.length < 5 ){
+                    return 'Informe uma senha maior que 5 caracteres';
+                  }
+                  return null;
+                },
+                onSaved: (value) => _authData['password'] = value,
               ),
             ],
           ),
