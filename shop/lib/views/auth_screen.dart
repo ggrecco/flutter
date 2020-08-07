@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 
 class AuthScreen extends StatelessWidget {
   @override
@@ -22,7 +23,16 @@ class AuthScreen extends StatelessWidget {
             width: double.infinity,
             child: Column(
               children: <Widget>[
-                
+                Container(
+                  child: Text(
+                    'Minha Loja',
+                    style: TextStyle(
+                      color: Theme.of(context).accentTextTheme.headline6.color,
+                      fontSize: 45,
+                      fontFamily: 'Anton',
+                    ),
+                  ),
+                ),
               ],
             ),
           ),
