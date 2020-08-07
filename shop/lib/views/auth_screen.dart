@@ -29,6 +29,7 @@ class AuthScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 Container(
+                  margin: EdgeInsets.only(bottom: 20),
                   padding: EdgeInsets.symmetric(
                     vertical: 8,
                     horizontal: 70,

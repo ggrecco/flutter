@@ -16,6 +16,20 @@ class _AuthCardState extends State<AuthCard> {
     'password': '',
   };
 
+  void _submit() {}
+
+  void _switchAuthMode() {
+    if (_authMode == AuthMode.Login) {
+      setState(() {
+        _authMode = AuthMode.Signup;
+      });
+    } else {
+      setState(() {
+        _authMode = AuthMode.Login;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final deviceSize = MediaQuery.of(context).size;
@@ -26,7 +40,7 @@ class _AuthCardState extends State<AuthCard> {
         borderRadius: BorderRadius.circular(10),
       ),
       child: Container(
-        height: 250,
+        height: _authMode == AuthMode.Login ? 270 : 330,
         width: deviceSize.width * 0.75,
         padding: EdgeInsets.all(16),
         child: Form(
@@ -88,8 +102,15 @@ class _AuthCardState extends State<AuthCard> {
                 child: Text(
                   _authMode == AuthMode.Login ? 'ENTRAR' : 'REGISTRAR',
                 ),
-                onPressed: (){},
-              )
+                onPressed: _submit,
+              ),
+              FlatButton(
+                onPressed: _switchAuthMode,
+                child: Text(
+                  'ALTERNAR P/ ${_authMode == AuthMode.Login ? 'REGISTRAR' : 'ENTRAR'}',
+                ),
+                textColor: Theme.of(context).primaryColor,
+              ),
             ],
           ),
         ),
