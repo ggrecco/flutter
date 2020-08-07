@@ -62,14 +62,15 @@ class _AuthCardState extends State<AuthCard> {
                   controller: _passwordController,
                   obscureText: true,
                   keyboardType: TextInputType.emailAddress,
-                  validator: (value) {
-                    if(value.isEmpty || value.length < 5 ){
-                      return 'Informe uma senha maior que 5 caracteres';
+                  validator: _authMode == AuthMode.Signup ? (value) {
+                    if(value != _passwordController.text){
+                      return 'Senhas diferentes!';
                     }
                     return null;
-                  },
+                  }: null,
                   onSaved: (value) => _authData['password'] = value,
                 ),
+                SizedBox(height:20),
             ],
           ),
         ),
