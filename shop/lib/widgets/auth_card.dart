@@ -8,6 +8,7 @@ class AuthCard extends StatefulWidget {
 }
 
 class _AuthCardState extends State<AuthCard> {
+  GlobalKey<FormState> _form = GlobalKey();
   bool _isLoading = false;
   AuthMode _authMode = AuthMode.Login;
   final _passwordController = TextEditingController();
@@ -18,7 +19,25 @@ class _AuthCardState extends State<AuthCard> {
   };
 
   void _submit() {
+    if(!_form.currentState.validate()){
+      return;
+    }
 
+    setState(() {
+      _isLoading = true;
+    });
+
+    _form.currentState.save();
+
+    if(_authMode == AuthMode.Login){
+      //login
+    }else{
+      //registrar
+    }
+
+    setState(() {
+      _isLoading = false;
+    });
   }
 
   void _switchAuthMode() {
@@ -43,10 +62,11 @@ class _AuthCardState extends State<AuthCard> {
         borderRadius: BorderRadius.circular(10),
       ),
       child: Container(
-        height: _authMode == AuthMode.Login ? 270 : 330,
+        height: _authMode == AuthMode.Login ? 310 : 391,
         width: deviceSize.width * 0.75,
         padding: EdgeInsets.all(16),
         child: Form(
+          key: _form,
           child: Column(
             children: <Widget>[
               TextFormField(
@@ -78,7 +98,6 @@ class _AuthCardState extends State<AuthCard> {
               if (_authMode == AuthMode.Signup)
                 TextFormField(
                   decoration: InputDecoration(labelText: 'Confirmar Senha'),
-                  controller: _passwordController,
                   obscureText: true,
                   keyboardType: TextInputType.emailAddress,
                   validator: _authMode == AuthMode.Signup
@@ -89,7 +108,7 @@ class _AuthCardState extends State<AuthCard> {
                           return null;
                         }
                       : null,
-                  onSaved: (value) => _authData['password'] = value,
+                  // onSaved: (value) => _authData['password'] = value,
                 ),
               SizedBox(height: 20),
               if(_isLoading)
