@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
@@ -30,6 +32,7 @@ class AuthScreen extends StatelessWidget {
                     vertical: 8,
                     horizontal: 70,
                   ),
+                  transform: Matrix4.rotationZ(-9 * pi / 180)..translate(-10.0),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
                     color: Colors.deepOrange.shade900,
