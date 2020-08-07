@@ -8,6 +8,11 @@ class AuthCard extends StatefulWidget {
 }
 
 class _AuthCardState extends State<AuthCard> {
+  Map<String, String> _authData = {
+    'email': '',
+    'password': '',
+  };
+
   @override
   Widget build(BuildContext context) {
     final deviceSize = MediaQuery.of(context).size;
@@ -33,6 +38,7 @@ class _AuthCardState extends State<AuthCard> {
                   }
                   return null;
                 },
+                onSaved: (value) => _authData['email'] = value,
               ),
             ],
           ),
