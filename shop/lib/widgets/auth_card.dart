@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:shop/providers/auth.dart';
+import 'package:provider/provider.dart';
 
 enum AuthMode { Signup, Login }
 
@@ -18,8 +20,8 @@ class _AuthCardState extends State<AuthCard> {
     'password': '',
   };
 
-  void _submit() {
-    if(!_form.currentState.validate()){
+  Future<void> _submit() async {
+    if (!_form.currentState.validate()) {
       return;
     }
 
@@ -29,10 +31,12 @@ class _AuthCardState extends State<AuthCard> {
 
     _form.currentState.save();
 
-    if(_authMode == AuthMode.Login){
+    Auth auth = Provider.of(context, listen: false);
+
+    if (_authMode == AuthMode.Login) {
       //login
-    }else{
-      //registrar
+    } else {
+      await auth.signup(_authData['email'], _authData['password']);
     }
 
     setState(() {
@@ -108,10 +112,9 @@ class _AuthCardState extends State<AuthCard> {
                           return null;
                         }
                       : null,
-                  // onSaved: (value) => _authData['password'] = value,
                 ),
               SizedBox(height: 20),
-              if(_isLoading)
+              if (_isLoading)
                 CircularProgressIndicator()
               else
                 RaisedButton(
