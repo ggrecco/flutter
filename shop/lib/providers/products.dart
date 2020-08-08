@@ -10,7 +10,9 @@ class Products with ChangeNotifier {
   final String _baseUrl =
       '${Constants.BASE_API_URL}/products';
   List<Product> _items = [];
-  // List<Product> _items = DUMMY_PRODUCTS;
+  String _token;
+
+  Products(this._token, this._items);
 
   List<Product> get items => [..._items];
   List<Product> get favoriteItems {
@@ -18,7 +20,7 @@ class Products with ChangeNotifier {
   }
 
   Future<void> loadProducts() async {
-    final response = await http.get('$_baseUrl.json');
+    final response = await http.get('$_baseUrl.json?auth=$_token');
     Map<String, dynamic> data = json.decode(response.body);
 
     _items.clear();
