@@ -1,14 +1,13 @@
 import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:shop/exception/http_exception.dart';
 import 'package:shop/utils/constants.dart';
-import '../providers/product.dart';
-// import '../data/dummy_data.dart';
+import './product.dart';
 
 class Products with ChangeNotifier {
-  final String _baseUrl =
-      '${Constants.BASE_API_URL}/products';
+  final String _baseUrl = '${Constants.BASE_API_URL}/products';
   List<Product> _items = [];
   String _token;
 
@@ -44,7 +43,7 @@ class Products with ChangeNotifier {
 
   Future<void> addProduct(Product newProduct) async {
     final response = await http.post(
-      '$_baseUrl.json',
+      '$_baseUrl.json?auth=$_token',
       body: json.encode(
         {
           'title': newProduct.title,
@@ -79,7 +78,7 @@ class Products with ChangeNotifier {
 
     if (index >= 0) {
       await http.patch(
-        '$_baseUrl/${product.id}.json',
+        '$_baseUrl/${product.id}.json?auth=$_token',
         body: json.encode({
           'title': product.title,
           'description': product.description,
@@ -94,12 +93,12 @@ class Products with ChangeNotifier {
 
   Future<void> deleteProduct(String id) async {
     final index = _items.indexWhere((prod) => prod.id == id);
-
     if (index >= 0) {
       final product = _items[index];
       _items.remove(product);
       notifyListeners();
-      final response = await http.delete('$_baseUrl/${product.id}.json');
+      
+      final response = await http.delete('$_baseUrl/${product.id}.json?auth=$_token');
       if (response.statusCode >= 400) {
         _items.insert(index, product);
         notifyListeners();

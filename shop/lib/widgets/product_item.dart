@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shop/exception/http_exception.dart';
+
 import '../providers/product.dart';
 import '../providers/products.dart';
 import '../utils/app_route.dart';
@@ -8,7 +9,7 @@ import '../utils/app_route.dart';
 class ProductItem extends StatelessWidget {
   final Product product;
 
-  const ProductItem({Key key, this.product});
+  const ProductItem(this.product);
 
   @override
   Widget build(BuildContext context) {
@@ -42,15 +43,11 @@ class ProductItem extends StatelessWidget {
                     actions: <Widget>[
                       FlatButton(
                         child: Text('Não'),
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                        },
+                        onPressed: () => Navigator.of(context).pop(false),
                       ),
                       FlatButton(
                         child: Text('Sim'),
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                        },
+                        onPressed: () => Navigator.of(context).pop(true),
                       ),
                     ],
                   ),
