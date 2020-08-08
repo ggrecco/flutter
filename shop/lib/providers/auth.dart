@@ -16,7 +16,7 @@ class Auth with ChangeNotifier {
     if (_token != null &&
         _expiryDate != null &&
         _expiryDate.isAfter(DateTime.now())) {
-      return token;
+      return _token;
     } else {
       return null;
     }
