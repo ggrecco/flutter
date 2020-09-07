@@ -56,7 +56,7 @@ class Auth with ChangeNotifier {
         ),
       );
 
-      Store.saveMap('userData', {
+      Store.saveMap('userDate', {
         "token": _token,
         "userId": _userId,
         "expiryDate": _expiryDate.toIso8601String(),
@@ -81,7 +81,7 @@ class Auth with ChangeNotifier {
     if (isAuth) {
       return Future.value();
     }
-    final userDate = await Store.getMap('userData');
+    final userDate = await Store.getMap('userDate');
     if (userDate == null) {
       return Future.value();
     }
@@ -109,7 +109,7 @@ class Auth with ChangeNotifier {
       _logoutTimer.cancel();
       _logoutTimer = null;
     }
-    Store.remove('userData');
+    Store.remove('userDate');
     notifyListeners();
   }
 
