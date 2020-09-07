@@ -109,7 +109,7 @@ class Auth with ChangeNotifier {
       _logoutTimer.cancel();
       _logoutTimer = null;
     }
-    Store.remove('userDate');
+    Store.remove('userData');
     notifyListeners();
   }
 
